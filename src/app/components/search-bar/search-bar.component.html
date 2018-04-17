@@ -1,0 +1,30 @@
+<form class="search-form">
+  <mat-form-field class="search-full-width">
+    <div fxLayout="row">
+      <input (keyup)="onSearch($event)" class="search-input" type="search" matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto"
+        [formControl]="seachInputControl">
+      <a class="search-input-icon" mat-icon-button (click)="onSearch($event)">
+        <mat-icon>search</mat-icon>
+      </a>
+    </div>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let suggestion of filteredStates | async" [value]="suggestion.value">
+        <span>{{suggestion.title}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Sort by" (selectionChange)="onSortColumn($event)" [formControl]="sortColumnControl">
+      <mat-option *ngFor="let sort of sortColumns" [value]="sort.column">
+        {{ sort.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Direction" (selectionChange)="onSortDirection($event)" [formControl]="sortDirectionControl">
+      <mat-option value="ascending">Ascending</mat-option>
+      <mat-option value="descending">Descending</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+</form>

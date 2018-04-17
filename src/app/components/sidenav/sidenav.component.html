@@ -1,0 +1,16 @@
+<mat-sidenav-container class="app-sidenav-container dark-theme">
+  <app-toolbar class="dark-theme" (toggleSidenav)="sidenav.toggle()">
+  </app-toolbar>
+  <mat-sidenav #sidenav class="app-sidenav" [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side'">
+    <div *ngFor="let link of links" class="sidenav-item">
+      <a href="{{link.link}}" mat-icon-button><mat-icon class="sidenav-icon">{{link.icon}}</mat-icon></a>
+    </div>
+  </mat-sidenav>
+
+  <div class="app-sidenav-content">
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-sidenav-container>

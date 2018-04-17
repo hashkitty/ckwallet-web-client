@@ -1,0 +1,193 @@
+<mat-card class="about-card">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>CK WALLET</mat-card-title>
+    <mat-card-subtitle>powered by ckwallet-core</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      CK wallet is a community project to create an easy-to-use native application for interacting with cryptokitties smart contracts.
+      Applications and souce code can be used free of charge under MIT licences
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button target="_blank" href="https://github.com/hashkitty/ckwallet-core">VIEW ON GITHUB</a>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card class="about-card">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>CK WALLET SEARCH</mat-card-title>
+    <mat-card-subtitle>powered by ckwallet-core</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      CK wallet search is a handy way to find kitties. It uses special query language (kitty query language or KQL). KQL is similar
+      to query language used on CK site, but with some extra capabilities. Learn more below
+    </p>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Query by named trait
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Just enter one or more trait name in the search box, joint by spaces or operators (OR/AND). Kitties with specified
+          traits in dominant position will be returned</p>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>crazy</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy manx</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy or stunned</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Query by trait in recessive position
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Just prefix name of the trait with a special prefix, indicating trait position: "r1:","r2:","r3:" (or "d:" for dominant,
+          same as no prefix)
+        </p>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>r1:crazy</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy r1:crazy r2:crazy r3:crazy</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy or r1:crazy</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Query by trait type (kai notation)
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Enter trait type followed by semicolon and 1-4 trait values in kai. First value is for dominant trait, then first
+          recessive and so on. So 'body:12' is equivalent to 'savannah r1:selkirk'. Full list of searchable trait types:
+        </p>
+        <ul>
+          <li>body</li>
+          <li>bodycolor</li>
+          <li>pattern</li>
+          <li>patterncolor</li>
+          <li>eyecolor</li>
+          <li>eyetype</li>
+          <li>accentcolor</li>
+          <li>mouth</li>
+          <li>wild</li>
+        </ul>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>body:2222</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>eyeType:1 body:2</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>pattern:11 or pattern:21</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Query by trait type (hex notation)
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Same as kai but value is specified in hex notation. Value starts with '0x' (to indicate hex notation) followed by
+          1-8 hex digit. Each trait is specified as a byte in hex notation (1-2 hex digits), first 2 digits after semicolon
+          is for dominant trait then first recessive and so on. So body:0x01010101 is equivalent to body:2222 in kai
+        </p>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>body:0x01010101</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>eyeType:0x0 body:0x1</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>pattern:0x0000 or pattern:0x0302</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Query by generation
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Enter "gen" keyword followed by semicolon and value in decimal notation
+        </p>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>gen:0</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>gen:999</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy gen:0</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Keywords
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Enter "virgin" keyword to get only kitties who doesn't have children
+        </p>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>virgin</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>virgin gen:0</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy gen:0 virgin</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Combining multiple statements
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          Query statements can be combined by spaces or operators "OR", "AND". Spaces are treated as implicit "AND" operator. Grouping
+          statements with brackets is not currently allowed, so combine "AND" "OR" operators on your own rist.</p>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <b>crazy body:1111</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy and body:1111</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>crazy body:1111 or gen:0</b>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button target="_blank" href="/search">TRY IT YOURSELF</a>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,33 @@
+<div class="search-bar-container">
+    <app-search-bar></app-search-bar>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+    <div class="kitty-box" *ngFor='let kitty of kitties'>
+        <mat-card class="kitty-card">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>{{kitty.id}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="{{kitty.imageUrl}}" (error)="setFallbackImage($event.target)" alt="{{kitty.id}}">
+            <mat-card-content>
+                Generation: {{kitty.generation}}<br>
+                Children: {{kitty.childrenCount}}
+            </mat-card-content>
+
+            <mat-card-actions>
+                <a mat-button target="_blank" href="https://www.cryptokitties.co/kitty/{{kitty.id}}">VIEW</a>
+                <a mat-button target="_blank" href="https://cryptokittydex.com/kitties/{{kitty.id}}">KITTYDEX</a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div fxFlex="100" class="footer-center">
+        <mat-spinner class="spinner" *ngIf="loading"></mat-spinner>
+        <button
+            mat-button
+            title="Load more"
+            (click)="onLoadMore($event)"
+            *ngIf="!loading && total > kitties.length">
+            Load more
+        </button>
+    </div>
+</div>
