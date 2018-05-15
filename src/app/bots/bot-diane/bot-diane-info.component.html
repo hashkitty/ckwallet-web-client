@@ -1,0 +1,62 @@
+<div>
+  <h2>Before you proceed</h2>
+  <p>Before you proceed please read carefully following info and understand risks. Diane bot is provided as is, without any warranty.</p>
+  <h3>Overview</h3>
+  <p>
+    Diane bot is a JavaScript code running in your browser. You would need a latest version of Chrome browser with MetaMask extension to run Diane (other configurations may work but were not tested).
+    Diane uses MetaMask to query smart contracts so you don't need to run local ethereum node, though having a local node maybe (or maybe not) an advantage.
+    Once you browse Diane page for the first time, its code is saved to your computer. So in case ckwallet.online site later is unavailable, local copy of script will be executed.
+    So Diane's availability does not depend on ckwallet.online availability. Note that if ckwallet.online is not available you may be running not latest version of the script and have not latest list of known traits.
+    Diane does not have any access to your funds or private keys (which are protected by MetaMask).
+  </p>
+  <h3>How does it work</h3>
+  <p>
+    Diane polls CK smart contract every second to check if new gen 0 kitty is born. Once new kitty is born Diane will check its genes to see if it has any "unknown" traits.
+    If "unknown" trait is found Diane will put message indicating integer number and location of the trait and link to buy the kitty.
+    Clicking the link will open MetaMask pop-up window that allows you to submit transaction to buy kitty.
+  </p>
+  <h3>List of known traits</h3>
+  <p>
+    Diane keeps its own list of known traits. List is cached on your machine and updated automatically whenever possible.
+    However, if list is inaccurate or outdated Diane will falsely report "unknown" trait on the kitty.
+    Always consider rechecking "unknown" trait report with other resources (e.g. kittycalc.co)
+  </p>
+  <h3>Competing with others</h3>
+  <p>
+    Gen 0 kitties with newly released traits are super valuable because they can be used to breed "diamond" kitty which is super rare.
+    As soon as such kitty is released there will be quite a few people trying to buy it (some of them maybe using same or different scripts).
+    So to win you must act quickest. Sooner you submit transaction - more chances to beat other players.
+    If few transactions to buy kitty (from different accounts) will land on the same block, only first transaction will succeed (others will fail).
+    Usually miners arrange transactions inside blocks by gas price, so transactions with higher gas price mined first.
+    So you would need to set gas price high enough to beat others, but mind transaction (and failed transaction cost).
+    It may be a good idea to check transactions of previous trait release winners to understand gas price ranges.
+  </p>
+  <h3>Failed transaction cost</h3>
+  <p>
+    If your transaction fails (e.g. it's overpriced by another transaction), you still have to pay transaction processing fee (transaction value will be returned to your account in this case).
+    Transaction processing cost is higher with higher gas price, so that's the risk you are taking when participating the competition.
+  </p>
+  <h3>Breeding for diamond kitty</h3>
+  <p>
+    Buying kitty with newly released trait does not guarantee  you will get a diamond mewtation (unless newly released trait is in dominant position which does not happen lately).
+    If you were lucky to buy kitty with unknown trait in recessive position you would need to breed it as soon as possible to make new trait move to dominant position.
+    Consider breeding costs before buying gen 0 kitty and make sure you know how to breed kitties.
+    If you don't have enough funds for breeding it maybe good idea not to participate in diamond chase.
+  </p>
+  <h3>Buying the kitty</h3>
+  <p>
+    Diane may falsely report a kitty to have a new trait (because of outdated list of known traits or a bug in the script).
+    Luckily Diane does not have access to your funds and does not any do purchases on your behalf. It is always up to you to make a buy decision.
+    Diane is only an observer (not a financial adviser) and not responsible for any financial decisions. Always carefully (but quickly) consider possible risks before hitting "Buy" link.
+  </p>
+  <h3>Recognize fraud</h3>
+  <p>
+    Diane may be vulnerable to spoofing/tampering attacks. If ckwallet.online site or your local machine/network is compromised by a fraudulent third party, your funds are still protected by MetaMask.
+    ALWAYS verify that address you are sending transaction to in MetaMask pop up window is address of Cryptokitties Sales Auction (get address from etherscan.io and remember fist digits or write down on a paper).
+    ALWAYS verify that https://ckwallet.online has a valid HTTPS certificate before working with Diane. Verify source code of Diane bot before working with it (if you know how to do it).
+  </p>
+  <div>
+      <button mat-raised-button (click)='clickCancel()'>No, thanks. That's too risky!</button>
+      <button mat-raised-button (click)='clickConfirm()'>I understand the risk and want to proceed</button>
+  </div>
+</div>

@@ -11,11 +11,13 @@
             <img mat-card-image src="{{kitty.imageUrl}}" (error)="setFallbackImage($event.target)" alt="{{kitty.id}}">
             <mat-card-content>
                 Generation: {{kitty.generation}}<br>
-                Children: {{kitty.childrenCount}}
+                Children: {{kitty.childrenCount}}<br>
+                <span *ngIf='kitty.price'>Price: {{kitty.price}}</span>
             </mat-card-content>
 
             <mat-card-actions>
                 <a mat-button target="_blank" href="https://www.cryptokitties.co/kitty/{{kitty.id}}">VIEW</a>
+                <!-- <a mat-button target="_blank" href="https://kittycalc.co/read/?k1={{kitty.id}}&amp;k2=0">CALC</a> -->
                 <a mat-button target="_blank" href="https://cryptokittydex.com/kitties/{{kitty.id}}">KITTYDEX</a>
             </mat-card-actions>
         </mat-card>

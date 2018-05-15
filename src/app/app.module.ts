@@ -14,10 +14,13 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AboutComponent } from './components/about/about.component';
+import { AuctionListComponent } from './components/auction-list/auction-list.component';
+import { BotsModule } from './bots/bots.module';
 
 const routes: Routes = [
   { path: 'search', component: KittyListComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'auctions', component: AuctionListComponent },
   { path: '**', redirectTo: 'search', pathMatch: 'full' }
 ];
 
@@ -29,6 +32,7 @@ const routes: Routes = [
     SidenavComponent,
     ToolbarComponent,
     AboutComponent,
+    AuctionListComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     MaterialModule,
+    BotsModule,
   ],
   providers: [MediaMatcher],
   bootstrap: [AppComponent]

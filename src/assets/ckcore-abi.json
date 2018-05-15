@@ -1,0 +1,46 @@
+[
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "kittyId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "matronId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "sireId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "name": "genes",
+                "type": "uint256"
+            }
+        ],
+        "name": "Birth",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "newContract",
+                "type": "address"
+            }
+        ],
+        "name": "ContractUpgrade",
+        "type": "event"
+    }
+]

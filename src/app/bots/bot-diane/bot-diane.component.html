@@ -1,0 +1,44 @@
+<div>
+  Hi there! I am Diane. Let me help you find some hidden diamonds. Start by filling "Gas price" and "Bid amount" fields.
+  <div>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <mat-list-item>
+        <mat-form-field>
+          <input [(ngModel)]='gasPrice' matInput placeholder="Gas price (gwei)">
+        </mat-form-field>
+        <mat-form-field>
+          <input [(ngModel)]='bidAmount' matInput placeholder="Bid amount">
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>Network: {{network}}</mat-list-item>
+      <mat-list-item>Block number: {{currentBlockNumber}}</mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <div class="example-container">
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell *matCellDef="let kitty">
+            <a href="https://kittycalc.co/read/?k1={{kitty.id}}&amp;k2=1" target="_blank">{{kitty.id}}</a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="birthBlock">
+          <mat-header-cell *matHeaderCellDef> Birth Block </mat-header-cell>
+          <mat-cell *matCellDef="let kitty"> {{kitty.birthBlock}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="traits">
+          <mat-header-cell *matHeaderCellDef> Traits </mat-header-cell>
+          <mat-cell *matCellDef="let kitty"> {{kitty.message}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let kitty">
+            <a href='#' (click)='buyKitty($event, kitty)'>Buy</a>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+      </mat-table>
+    </div>

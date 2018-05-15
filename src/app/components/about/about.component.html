@@ -75,7 +75,9 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p>Enter trait type followed by semicolon and 1-4 trait values in kai. First value is for dominant trait, then first
-          recessive and so on. So 'body:12' is equivalent to 'savannah r1:selkirk'. Full list of searchable trait types:
+          recessive and so on. So 'body:12' is equivalent to 'savannah r1:selkirk'.
+          Use wildcard symbol '_' to skip trait position e.g. body:_2_2 will find all kitties with first and last recessive gene equals 2.
+          Full list of searchable trait types:
         </p>
         <ul>
           <li>body</li>
@@ -87,10 +89,16 @@
           <li>accentcolor</li>
           <li>mouth</li>
           <li>wild</li>
+          <li>unknown1</li>
+          <li>unknown2</li>
+          <li>unknown3</li>
         </ul>
         <mat-list role="list">
           <mat-list-item role="listitem">
             <b>body:2222</b>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <b>body:_11</b>
           </mat-list-item>
           <mat-list-item role="listitem">
             <b>eyeType:1 body:2</b>
@@ -152,15 +160,18 @@
         <p>
           Enter "virgin" keyword to get only kitties who doesn't have children
         </p>
+        <p>
+          Enter "sale" or "sire" keywords to get only that are currently on sale/sire auction
+        </p>
         <mat-list role="list">
           <mat-list-item role="listitem">
             <b>virgin</b>
           </mat-list-item>
           <mat-list-item role="listitem">
-            <b>virgin gen:0</b>
+            <b>sale virgin gen:0</b>
           </mat-list-item>
           <mat-list-item role="listitem">
-            <b>crazy gen:0 virgin</b>
+            <b>sire crazy gen:0 virgin</b>
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
