@@ -16,6 +16,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { AboutComponent } from './components/about/about.component';
 import { AuctionListComponent } from './components/auction-list/auction-list.component';
 import { BotsModule } from './bots/bots.module';
+import { KittyFormComponent } from './components/kitty-form/kitty-form.component';
 
 const routes: Routes = [
   { path: 'search', component: KittyListComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
     ToolbarComponent,
     AboutComponent,
     AuctionListComponent,
+    KittyFormComponent,
   ],
   imports: [
     BrowserModule,

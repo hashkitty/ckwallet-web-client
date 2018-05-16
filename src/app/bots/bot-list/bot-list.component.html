@@ -6,22 +6,25 @@
   </mat-card-header>
   <mat-card-content>
     <p>
-      CK wallet bots are provided without any warranty, use on your own risks.
-      Applications and souce code can be used free of charge under MIT licences
+      CK wallet bots are provided without any warranty, use on your own risks. Applications and souce code can be used free of
+      charge under MIT licences
     </p>
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Diane the Diamond Chaser
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>Diane monitors newly release gen0 kitties for unknown traits and provides you opportunity to buy first. <a href='#' (click)='navigateBot($event, "diane")'>Go</a></p>
-        <p></p>
-      </mat-expansion-panel>
-    </mat-accordion>
+    <mat-card class="bot-card">
+      <mat-card-header>
+        <mat-card-title>Diane the Diamond Chaser</mat-card-title>
+      </mat-card-header>
+      <a href="#" (click)='navigateBot($event, "diane")'>
+        <img mat-card-image src="https://ckwallet.online/diane.png" alt="Photo of a Shiba Inu">
+      </a>
+      <mat-card-content>
+        <p>
+          Diane monitors newly released gen 0 kitties for unknown traits and provides you opportunity to buy first.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button target="_blank" href="https://github.com/hashkitty/ckwallet-web-client/tree/master/src/app/bots/bot-diane">VIEW ON GITHUB</a>
+        <button (click)='navigateBot($event, "diane")' mat-button>GO</button>
+      </mat-card-actions>
+    </mat-card>
   </mat-card-content>
-  <mat-card-actions>
-    <a mat-button target="_blank" href="https://github.com/hashkitty/ckwallet-core">VIEW ON GITHUB</a>
-  </mat-card-actions>
 </mat-card>

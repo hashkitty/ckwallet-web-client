@@ -6,6 +6,7 @@ import { MaterialModule } from '../shared/material.module';
 import { BotListComponent } from './bot-list/bot-list.component';
 import { BotDianeComponent } from './bot-diane/bot-diane.component';
 import { BotDianeInfoComponent } from './bot-diane/bot-diane-info.component';
+import { KittyFormComponent } from '../components/kitty-form/kitty-form.component';
 
 const routes: Routes = [
   { path: 'bots', component: BotListComponent },
@@ -25,6 +26,6 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
   ],
-  entryComponents: [ BotDianeInfoComponent ]
+  entryComponents: [ BotDianeInfoComponent, KittyFormComponent ]
 })
 export class BotsModule { }

@@ -16,18 +16,31 @@ declare let require;
 export class KittyContractService {
     private _kittyCoreContract;
     private _saleAuctionContract;
-    private _ckCoreAddress = '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d';
-    private _ckSaleAuctionAddrees = '0xb1690c08e213a35ed9bab7b318de14420fb57d8c';
+
+    private _addresses = {
+        'main': {
+            Core: '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d',
+            SaleAuction: '0xb1690c08e213a35ed9bab7b318de14420fb57d8c',
+        },
+        'test': {
+            Core: '0x1cd8c56d57492d836866d14a9fe89b01e9ed0568',
+            SaleAuction: '0x1cd8c56d57492d836866d14a9fe89b01e9ed0568',
+        }
+    };
 
     constructor(private _web3Service: Web3Service) {
         // Use Mist/MetaMask's provider
-        const ckCoreAbi = require('../../assets/ckcore-abi.json');
-        const saleAuctionAbi = require('../../assets/cksale-abi.json');
-        this._kittyCoreContract = _web3Service.getContract(ckCoreAbi, this._ckCoreAddress);
-        this._saleAuctionContract = _web3Service.getContract(saleAuctionAbi, this._ckSaleAuctionAddrees);
+        this.setNetwork('main');
     }
 
-    public async getNewGen0(blocksToCheck): Promise<IKitty> {
+    public setNetwork(network) {
+        const ckCoreAbi = require('../../assets/ckcore-abi.json');
+        const saleAuctionAbi = require('../../assets/cksale-abi.json');
+        this._kittyCoreContract = this._web3Service.getContract(ckCoreAbi, this._addresses[network].Core);
+        this._saleAuctionContract = this._web3Service.getContract(saleAuctionAbi, this._addresses[network].SaleAuction);
+    }
+
+    public async getNewGen0(blocksToCheck): Promise<any> {
         const currentBlock = await this._web3Service.getCurrentBlockNumber();
         const from = currentBlock - blocksToCheck;
         return new Promise<IKitty>(((resolve, reject) => {
@@ -39,11 +52,15 @@ export class KittyContractService {
                     if (error) {
                         reject(error);
                     } else {
-                        const kitties = events.map(e => this.kittyFromEvent(e))
-                            .filter(k => k.matronId === 0)
-                            .sort((k1, k2) => k1.birthBlock - k2.birthBlock);
-                        const last = kitties.length > 0 ? kitties[kitties.length - 1] : undefined;
-                        resolve(last);
+                        if (events && events.length > 0) {
+                            const kitties = events.map(e => this.kittyFromEvent(e))
+                                .filter(k => k.matronId === 0)
+                                .sort((k1, k2) => k1.birthBlock - k2.birthBlock);
+                            const last = kitties.length > 0 ? kitties[kitties.length - 1] : undefined;
+                            resolve(last);
+                        } else {
+                            resolve();
+                        }
                     }
                 },
             );
@@ -53,7 +70,7 @@ export class KittyContractService {
     public observeNewGen0(interval): Observable<IKitty> {
         return Observable.interval(interval)
             .switchMap(() => Observable.fromPromise(this.getNewGen0(200)))
-            .distinct(k => k.id);
+            .distinct(k => k && k.id);
     }
 
     kittyFromEvent(event: any): IKitty {

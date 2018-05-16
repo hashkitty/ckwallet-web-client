@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatDialog } from '@angular/material';
 import { KittyContractService } from '../../services/kitty-contract.service';
 import { Web3Service } from '../../services/web3.service';
 import { IKitty } from '../../models/kitty';
 import { KittyService } from '../../services/kitty.service';
 import { GeneticsService } from '../../services/genetics.service';
 import { ITrait } from '../../models/trait';
+import { KittyFormComponent } from '../../components/kitty-form/kitty-form.component';
 
 @Component({
   selector: 'app-bot-diane',
@@ -33,19 +34,33 @@ export class BotDianeComponent implements OnInit, OnDestroy {
     private _kittyContract: KittyContractService,
     private _kittyService: KittyService,
     private _genetics: GeneticsService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private _dialog: MatDialog) {
   }
 
+  async windowLoad() {
+    return new Promise(resolve => {
+      window.addEventListener('load', () => resolve());
+    });
+  }
   async ngOnInit() {
+    // to avoid race conditions with web3 injection timing
+    await this.windowLoad();
+
     this.dataSource = new MatTableDataSource(this.kitties);
     this.network = this.getNetworkName(this._web3.getNetwork());
-    this.account = this._web3.getAccount();
-    const knownTraits = await this.loadKnowTraits(true);
-    this._traitMap = this.initTraitMap(knownTraits);
-
     if (this.network) {
+      this._kittyContract.setNetwork(this.network.toLowerCase());
+      this.account = this._web3.getAccount();
+      const knownTraits = await this.loadKnowTraits(true);
+      this._traitMap = this.initTraitMap(knownTraits);
+
       this._subscriptionKitties = this._kittyContract.observeNewGen0(1000).subscribe(
-        kitty => this.processGen0(kitty),
+        kitty => {
+          if (kitty) {
+            this.processGen0(kitty);
+          }
+        },
         error => this.showError(error)
       );
 
@@ -64,9 +79,9 @@ export class BotDianeComponent implements OnInit, OnDestroy {
     let res;
     switch (index) {
       case '1':
-        res = 'Production';
+        res = 'Main';
         break;
-      case '2':
+      case '3': // Ropsten
         res = 'Test';
         break;
     }
@@ -104,13 +119,15 @@ export class BotDianeComponent implements OnInit, OnDestroy {
   }
 
   public processGen0(kitty) {
-    const status = this.getKittyStatus(kitty);
-    kitty.message = status.message;
-    if (kitty.unknownGenes) {
-      kitty.showBuyLink = true;
+    if (kitty) {
+      const status = this.getKittyStatus(kitty);
+      kitty.message = status.message;
+      if (status.unknownGenes && status.unknownGenes.length > 0) {
+        kitty.showBuyLink = true;
+      }
+      this.kitties.push(kitty);
+      this.dataSource.data = this.kitties;
     }
-    this.kitties.push(kitty);
-    this.dataSource.data = this.kitties;
   }
 
   getUnknownGenes(genes) {
@@ -146,6 +163,17 @@ export class BotDianeComponent implements OnInit, OnDestroy {
     return res;
   }
 
+  showTraits(event, kitty) {
+    event.preventDefault();
+    const dialogRef = this._dialog.open(KittyFormComponent, {
+      data: {
+        kitty,
+        traitMap: this._traitMap,
+        height: '200px',
+      }
+    });
+  }
+
   public showError(error) {
     const msg = error.message ? error.message : error;
     if (console) {
@@ -156,8 +184,11 @@ export class BotDianeComponent implements OnInit, OnDestroy {
 
   async buyKitty(e, kitty) {
     e.preventDefault();
-    await this._kittyContract.buyKitty(kitty.id, this.bidAmount, this.gasPrice);
+    const txHash = await this._kittyContract.buyKitty(kitty.id, this.bidAmount, this.gasPrice);
+    const txUrl = `https://${this.network === 'Test' ? 'ropsten.' : ''}etherscan.io/tx/${txHash}`;
+    kitty.Transaction = txUrl;
   }
+
   ngOnDestroy() {
     this._subscriptionKitties.unsubscribe();
     this._subscriptionBlockNumber.unsubscribe();

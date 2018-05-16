@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IKitty } from '../models/kitty';
 import { BN } from 'bn.js';
 import { IGenes } from '../models/genes';
+import { ITraitType } from '../models/traitType';
 
 @Injectable()
 export class GeneticsService {
@@ -16,7 +17,7 @@ export class GeneticsService {
             const gene = genes.shrn(i * 5).mod(new BN(32)).toNumber();
             split.push(gene);
         }
-        const types = this.getTraitTypes();
+        const types = this.getTraitTypes().map(t => t.Name);
         for (let i = 0; i < 12; i += 1) {
             res[types[i]][0] = split[i * 4];
             res[types[i]][1] = split[i * 4 + 1];
@@ -26,20 +27,20 @@ export class GeneticsService {
         return res;
     }
 
-    getTraitTypes() {
+    getTraitTypes(): ITraitType[] {
         return [
-            'body',
-            'pattern',
-            'eyeColor',
-            'eyeType',
-            'bodyColor',
-            'patternColor',
-            'accentColor',
-            'wild',
-            'mouth',
-            'environment',
-            'secret',
-            'unknown',
+            { Name: 'body', Label: 'Body' },
+            { Name: 'pattern', Label: 'Pattern' },
+            { Name: 'eyeColor', Label: 'Eye color' },
+            { Name: 'eyeType', Label: 'Eye type' },
+            { Name: 'bodyColor', Label: 'Body color' },
+            { Name: 'patternColor', Label: 'Pattern color' },
+            { Name: 'accentColor', Label: 'Accent color' },
+            { Name: 'wild', Label: 'Wild' },
+            { Name: 'mouth', Label: 'Mouth' },
+            { Name: 'environment', Label: 'Environment' },
+            { Name: 'secret', Label: 'Secret' },
+            { Name: 'unknown', Label: 'Unknown' },
         ];
     }
 

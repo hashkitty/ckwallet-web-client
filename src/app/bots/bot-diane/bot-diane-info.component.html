@@ -7,7 +7,8 @@
     Diane uses MetaMask to query smart contracts so you don't need to run local ethereum node, though having a local node maybe (or maybe not) an advantage.
     Once you browse Diane page for the first time, its code is saved to your computer. So in case ckwallet.online site later is unavailable, local copy of script will be executed.
     So Diane's availability does not depend on ckwallet.online availability. Note that if ckwallet.online is not available you may be running not latest version of the script and have not latest list of known traits.
-    Diane does not have any access to your funds or private keys (which are protected by MetaMask).
+    Diane does not have any access to your funds or private keys (which are protected by MetaMask).<br>
+    Diane loves attention and works best when in active brower's tab, switching focus to another application (minizing browser, switching tabs) may suspend execution.
   </p>
   <h3>How does it work</h3>
   <p>
@@ -45,6 +46,15 @@
   </p>
   <h3>Buying the kitty</h3>
   <p>
+    When buying a kitty, tranaction value should exceed price of the kitty. Price of new gen 0 kitty is determined by previously sold gen 0s and is set to 150% of average sale price of 5 last sales.
+    It is good idea to bid more than expected price to make sure that your trasaction won't fail because of insufficient value.
+    Bid excess will be transferred back to your account on successful transaction, so there is no risk in biding more than actual price
+    (e.g. if newly released gen 0 is priced at 0.3 eth you can bid 1 eth and you will get kitty and 0.7 eth change on successful transaction). <br>
+    When Diane finds a new gen 0 with unknown traits she will provide you a "Buy" button to make purchase. It is good idea to preset values for gas price and bid amount
+    in advance, using Diane's UI (you can change those values in MetaMask UI later), since you would need to act quickly.
+  </p>
+  <h3>False reports</h3>
+  <p>
     Diane may falsely report a kitty to have a new trait (because of outdated list of known traits or a bug in the script).
     Luckily Diane does not have access to your funds and does not any do purchases on your behalf. It is always up to you to make a buy decision.
     Diane is only an observer (not a financial adviser) and not responsible for any financial decisions. Always carefully (but quickly) consider possible risks before hitting "Buy" link.
@@ -54,6 +64,13 @@
     Diane may be vulnerable to spoofing/tampering attacks. If ckwallet.online site or your local machine/network is compromised by a fraudulent third party, your funds are still protected by MetaMask.
     ALWAYS verify that address you are sending transaction to in MetaMask pop up window is address of Cryptokitties Sales Auction (get address from etherscan.io and remember fist digits or write down on a paper).
     ALWAYS verify that https://ckwallet.online has a valid HTTPS certificate before working with Diane. Verify source code of Diane bot before working with it (if you know how to do it).
+  </p>
+  <h3>Train before spend real money</h3>
+  <p>
+    It's a good idea to train before go spending real ether. Switch your MetaMask to Ropsten network and participate in test diamond hunt.
+    Make sure Diane display 'Network:Test' after network switch (refresh page in needed).
+    Ropsen network will release fake gen0s every 5 mins for the fixed price of 0.1 eth.
+    Some of gen 0s will have unknown traits - buy them fist! Happy hunting!
   </p>
   <div>
       <button mat-raised-button (click)='clickCancel()'>No, thanks. That's too risky!</button>
